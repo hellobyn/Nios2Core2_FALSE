@@ -1,0 +1,9 @@
+	component cpu2core_BACKUP is
+		port (
+			clk_clk       : in  std_logic := 'X'; -- clk
+			pio_0_export  : out std_logic;        -- export
+			pio_1_export  : out std_logic;        -- export
+			reset_reset_n : in  std_logic := 'X'  -- reset_n
+		);
+	end component cpu2core_BACKUP;
+

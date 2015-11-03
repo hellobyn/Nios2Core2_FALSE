@@ -1,0 +1,16 @@
+Analysis & Synthesis Status : Successful - Tue Nov 03 09:51:20 2015
+Quartus II 64-Bit Version : 14.1.0 Build 186 12/03/2014 SJ Full Version
+Revision Name : Nios2Core2
+Top-level Entity Name : Nios2Core2
+Family : MAX 10
+Total logic elements : 3,329
+    Total combinational functions : 3,022
+    Dedicated logic registers : 1,608
+Total registers : 1608
+Total pins : 4
+Total virtual pins : 0
+Total memory bits : 259,072
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0
+UFM blocks : 0
+ADC blocks : 0
