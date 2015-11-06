@@ -1,4 +1,4 @@
---lpm_counter DEVICE_FAMILY="MAX 10" lpm_width=6 aclr clock cnt_en q sclr updown
+--lpm_counter DEVICE_FAMILY="Cyclone IV E" lpm_width=6 aclr clock cnt_en q sclr updown CARRY_CHAIN="MANUAL"
 --VERSION_BEGIN 14.1 cbx_cycloneii 2014:12:03:18:04:04:SJ cbx_lpm_add_sub 2014:12:03:18:04:04:SJ cbx_lpm_compare 2014:12:03:18:04:04:SJ cbx_lpm_counter 2014:12:03:18:04:04:SJ cbx_lpm_decode 2014:12:03:18:04:04:SJ cbx_mgl 2014:12:03:18:06:09:SJ cbx_stratix 2014:12:03:18:04:04:SJ cbx_stratixii 2014:12:03:18:04:04:SJ  VERSION_END
 
 
@@ -18,7 +18,7 @@
 --  agreement for further details.
 
 
-FUNCTION fiftyfivenm_lcell_comb (cin, dataa, datab, datac, datad)
+FUNCTION cycloneive_lcell_comb (cin, dataa, datab, datac, datad)
 WITH ( DONT_TOUCH, LUT_MASK, SUM_LUTC_INPUT)
 RETURNS ( combout, cout);
 
@@ -33,32 +33,32 @@ SUBDESIGN cntr_337
 	updown	:	input;
 ) 
 VARIABLE 
-	counter_comb_bita0 : fiftyfivenm_lcell_comb
+	counter_comb_bita0 : cycloneive_lcell_comb
 		WITH (
 			LUT_MASK = "5A90",
 			SUM_LUTC_INPUT = "cin"
 		);
-	counter_comb_bita1 : fiftyfivenm_lcell_comb
+	counter_comb_bita1 : cycloneive_lcell_comb
 		WITH (
 			LUT_MASK = "5A90",
 			SUM_LUTC_INPUT = "cin"
 		);
-	counter_comb_bita2 : fiftyfivenm_lcell_comb
+	counter_comb_bita2 : cycloneive_lcell_comb
 		WITH (
 			LUT_MASK = "5A90",
 			SUM_LUTC_INPUT = "cin"
 		);
-	counter_comb_bita3 : fiftyfivenm_lcell_comb
+	counter_comb_bita3 : cycloneive_lcell_comb
 		WITH (
 			LUT_MASK = "5A90",
 			SUM_LUTC_INPUT = "cin"
 		);
-	counter_comb_bita4 : fiftyfivenm_lcell_comb
+	counter_comb_bita4 : cycloneive_lcell_comb
 		WITH (
 			LUT_MASK = "5A90",
 			SUM_LUTC_INPUT = "cin"
 		);
-	counter_comb_bita5 : fiftyfivenm_lcell_comb
+	counter_comb_bita5 : cycloneive_lcell_comb
 		WITH (
 			LUT_MASK = "5A90",
 			SUM_LUTC_INPUT = "cin"

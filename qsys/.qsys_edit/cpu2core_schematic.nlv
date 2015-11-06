@@ -1,15 +1,16 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
-preplace inst cpu2core.jtag_uart -pg 1 -lvl 4 -y 270
-preplace inst cpu2core.sysid -pg 1 -lvl 4 -y 690
-preplace inst cpu2core.clk -pg 1 -lvl 1 -y 440
-preplace inst cpu2core.pio_0 -pg 1 -lvl 4 -y 980
-preplace inst cpu2core.pio_1 -pg 1 -lvl 4 -y 400
-preplace inst cpu2core.cpu_0 -pg 1 -lvl 3 -y 400
-preplace inst cpu2core.onchip_memory_0 -pg 1 -lvl 4 -y 600
+preplace inst cpu2core.jtag_uart -pg 1 -lvl 4 -y 250
+preplace inst cpu2core.sysid -pg 1 -lvl 4 -y 760
+preplace inst cpu2core.clk -pg 1 -lvl 1 -y 420
+preplace inst cpu2core.timer_0 -pg 1 -lvl 4 -y 360
+preplace inst cpu2core.pio_0 -pg 1 -lvl 4 -y 960
+preplace inst cpu2core.pio_1 -pg 1 -lvl 4 -y 470
+preplace inst cpu2core.cpu_0 -pg 1 -lvl 3 -y 380
+preplace inst cpu2core.onchip_memory_0 -pg 1 -lvl 4 -y 670
 preplace inst cpu2core.cpu_1.reset_bridge -pg 1
-preplace inst cpu2core.cpu_1 -pg 1 -lvl 4 -y 90
-preplace inst cpu2core.onchip_memory_1 -pg 1 -lvl 4 -y 510
+preplace inst cpu2core.cpu_1 -pg 1 -lvl 4 -y 50
+preplace inst cpu2core.onchip_memory_1 -pg 1 -lvl 4 -y 580
 preplace inst cpu2core -pg 1 -lvl 1 -y 40 -regy -20
 preplace inst cpu2core.cpu_1.clock_bridge -pg 1
 preplace inst cpu2core.cpu_1.cpu -pg 1
@@ -17,12 +18,12 @@ preplace inst cpu2core.cpu_0.cpu -pg 1
 preplace inst cpu2core.cpu_0.reset_bridge -pg 1
 preplace inst cpu2core.cpu_0.clock_bridge -pg 1
 preplace netloc EXPORT<net_container>cpu2core</net_container>(SLAVE)cpu2core.reset,(SLAVE)clk.clk_in_reset) 1 0 1 NJ
-preplace netloc EXPORT<net_container>cpu2core</net_container>(SLAVE)cpu2core.pio_0,(SLAVE)pio_0.external_connection) 1 0 4 NJ 1010 NJ 1010 NJ 1010 NJ
-preplace netloc INTERCONNECT<net_container>cpu2core</net_container>(SLAVE)jtag_uart.reset,(SLAVE)sysid.reset,(SLAVE)pio_1.reset,(MASTER)cpu_1.debug_reset_request,(MASTER)cpu_0.debug_reset_request,(SLAVE)cpu_0.reset,(SLAVE)pio_0.reset,(SLAVE)onchip_memory_0.reset1,(SLAVE)cpu_1.reset,(SLAVE)onchip_memory_1.reset1,(MASTER)clk.clk_reset) 1 1 4 NJ 470 440 570 1120 50 1520
-preplace netloc INTERCONNECT<net_container>cpu2core</net_container>(SLAVE)pio_1.s1,(MASTER)cpu_0.data_master,(SLAVE)onchip_memory_0.s1,(MASTER)cpu_0.instruction_master,(SLAVE)cpu_0.debug_mem_slave,(SLAVE)onchip_memory_1.s1,(SLAVE)cpu_1.debug_mem_slave,(MASTER)cpu_1.instruction_master,(MASTER)cpu_1.data_master,(SLAVE)sysid.control_slave,(SLAVE)pio_0.s1,(SLAVE)jtag_uart.avalon_jtag_slave) 1 2 3 460 550 1080 30 1540
-preplace netloc EXPORT<net_container>cpu2core</net_container>(SLAVE)cpu2core.pio_1,(SLAVE)pio_1.external_connection) 1 0 4 NJ 590 NJ 590 NJ 590 NJ
-preplace netloc EXPORT<net_container>cpu2core</net_container>(SLAVE)clk.clk_in,(SLAVE)cpu2core.clk) 1 0 1 NJ
-preplace netloc FAN_IN<net_container>cpu2core</net_container>(MASTER)cpu_0.irq,(MASTER)cpu_1.irq,(SLAVE)jtag_uart.irq) 1 3 2 1100 240 1520
-preplace netloc FAN_OUT<net_container>cpu2core</net_container>(SLAVE)onchip_memory_1.clk1,(SLAVE)cpu_0.clk,(MASTER)clk.clk,(SLAVE)pio_0.clk,(SLAVE)pio_1.clk,(SLAVE)sysid.clk,(SLAVE)jtag_uart.clk,(SLAVE)cpu_1.clk,(SLAVE)onchip_memory_0.clk1) 1 1 3 NJ 450 440 360 1160
-levelinfo -pg 1 0 50 1580
-levelinfo -hier cpu2core 60 90 420 840 1280 1560
+preplace netloc INTERCONNECT<net_container>cpu2core</net_container>(MASTER)cpu_0.irq,(SLAVE)timer_0.irq,(MASTER)cpu_1.irq,(SLAVE)jtag_uart.irq) 1 3 2 1080 240 1540
+preplace netloc EXPORT<net_container>cpu2core</net_container>(SLAVE)pio_0.external_connection,(SLAVE)cpu2core.pio_0) 1 0 4 NJ 990 NJ 990 NJ 990 NJ
+preplace netloc INTERCONNECT<net_container>cpu2core</net_container>(MASTER)clk.clk_reset,(SLAVE)onchip_memory_0.reset1,(SLAVE)timer_0.reset,(SLAVE)pio_1.reset,(SLAVE)cpu_0.reset,(SLAVE)sysid.reset,(SLAVE)onchip_memory_1.reset1,(MASTER)cpu_1.debug_reset_request,(SLAVE)cpu_1.reset,(MASTER)cpu_0.debug_reset_request,(SLAVE)pio_0.reset,(SLAVE)jtag_uart.reset) 1 1 4 NJ 450 440 550 1140 200 1520
+preplace netloc FAN_OUT<net_container>cpu2core</net_container>(SLAVE)pio_1.clk,(SLAVE)onchip_memory_1.clk1,(SLAVE)cpu_1.clk,(SLAVE)jtag_uart.clk,(MASTER)clk.clk,(SLAVE)sysid.clk,(SLAVE)pio_0.clk,(SLAVE)cpu_0.clk,(SLAVE)timer_0.clk,(SLAVE)onchip_memory_0.clk1) 1 1 3 NJ 430 460 530 1100
+preplace netloc EXPORT<net_container>cpu2core</net_container>(SLAVE)pio_1.external_connection,(SLAVE)cpu2core.pio_1) 1 0 4 NJ 590 NJ 590 NJ 590 NJ
+preplace netloc EXPORT<net_container>cpu2core</net_container>(SLAVE)cpu2core.clk,(SLAVE)clk.clk_in) 1 0 1 NJ
+preplace netloc INTERCONNECT<net_container>cpu2core</net_container>(SLAVE)timer_0.s1,(SLAVE)cpu_0.debug_mem_slave,(SLAVE)sysid.control_slave,(MASTER)cpu_1.data_master,(SLAVE)cpu_1.debug_mem_slave,(SLAVE)pio_0.s1,(MASTER)cpu_0.instruction_master,(MASTER)cpu_1.instruction_master,(SLAVE)jtag_uart.avalon_jtag_slave,(SLAVE)onchip_memory_0.s1,(MASTER)cpu_0.data_master,(SLAVE)onchip_memory_1.s1,(SLAVE)pio_1.s1) 1 2 3 480 570 1120 220 1560
+levelinfo -pg 1 0 50 1600
+levelinfo -hier cpu2core 60 90 420 840 1280 1580

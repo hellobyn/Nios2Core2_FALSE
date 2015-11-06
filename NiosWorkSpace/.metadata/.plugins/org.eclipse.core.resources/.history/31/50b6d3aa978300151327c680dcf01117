@@ -1,0 +1,34 @@
+
+#include <unistd.h>
+#include "../inc/sopc.h"
+#include "sys/alt_irq.h"
+#include "alt_types.h"
+
+//函数声明
+static void timer_init(void);
+
+//变量声明
+int i = 0, j = 0, flag;
+alt_u32 timer_prd[4] = {5000000, 10000000, 25000000, 50000000};
+
+int main(void)
+{
+	int i;
+
+	while(1)
+	{
+		for(i = 0; i < 4; i++)
+		{
+			LED->DATA = 1;
+//			usleep(100000);
+//			LED->DATA = 0;
+//			usleep(100000);
+		}
+	}
+	return 0;
+}
+
+void timer_init(void)
+{
+
+}

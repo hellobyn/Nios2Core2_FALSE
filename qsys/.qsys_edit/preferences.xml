@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <preferences>
  <debug showDebugMenu="0" />
- <systemtable filter="All Interfaces">
+ <systemtable filter="All Interfaces" showClockDomains="0" showResetDomains="0">
   <columns>
-   <connections preferredWidth="223" />
-   <irq preferredWidth="47" />
+   <connections preferredWidth="143" />
+   <irq preferredWidth="34" />
+   <name preferredWidth="169" />
   </columns>
  </systemtable>
  <library expandedCategories="Project,Library" />
- <window width="1382" height="744" x="-8" y="-8" />
- <generation path="_PROJECT_NAME_" />
+ <window width="1456" height="916" x="1358" y="-8" />
+ <generation path="E:/MyProject/My_project/Altera/Niso2Core2/qsysEP4" />
 </preferences>

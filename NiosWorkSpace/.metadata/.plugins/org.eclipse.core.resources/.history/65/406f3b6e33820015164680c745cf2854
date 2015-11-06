@@ -1,0 +1,22 @@
+
+#include <unistd.h>
+#include "../inc/sopc.h"
+#include "sys/alt_irq.h"
+#include "alt_types.h"
+
+int main(void)
+{
+	int i;
+
+	while(1)
+	{
+		for(i = 0; i < 4; i++)
+		{
+			LED->DATA = 1;
+//			usleep(100000);
+//			LED->DATA = 0;
+//			usleep(100000);
+		}
+	}
+	return 0;
+}

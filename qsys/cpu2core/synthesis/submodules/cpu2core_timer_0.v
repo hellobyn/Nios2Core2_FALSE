@@ -43,30 +43,35 @@ module cpu2core_timer_0 (
   input   [ 15: 0] writedata;
 
   wire             clk_en;
+  wire             control_continuous;
   wire             control_interrupt_enable;
-  reg              control_register;
+  reg     [  3: 0] control_register;
   wire             control_wr_strobe;
   reg              counter_is_running;
   wire             counter_is_zero;
-  wire    [  5: 0] counter_load_value;
+  wire    [ 31: 0] counter_load_value;
   reg              delayed_unxcounter_is_zeroxx0;
   wire             do_start_counter;
   wire             do_stop_counter;
   reg              force_reload;
-  reg     [  5: 0] internal_counter;
+  reg     [ 31: 0] internal_counter;
   wire             irq;
+  reg     [ 15: 0] period_h_register;
   wire             period_h_wr_strobe;
+  reg     [ 15: 0] period_l_register;
   wire             period_l_wr_strobe;
   wire    [ 15: 0] read_mux_out;
   reg     [ 15: 0] readdata;
+  wire             start_strobe;
   wire             status_wr_strobe;
+  wire             stop_strobe;
   wire             timeout_event;
   reg              timeout_occurred;
   assign clk_en = 1;
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
-          internal_counter <= 6'h31;
+          internal_counter <= 32'h17D783F;
       else if (counter_is_running || force_reload)
           if (counter_is_zero    || force_reload)
               internal_counter <= counter_load_value;
@@ -76,7 +81,9 @@ module cpu2core_timer_0 (
 
 
   assign counter_is_zero = internal_counter == 0;
-  assign counter_load_value = 6'h31;
+  assign counter_load_value = {period_h_register,
+    period_l_register};
+
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -86,8 +93,11 @@ module cpu2core_timer_0 (
     end
 
 
-  assign do_start_counter = 1;
-  assign do_stop_counter = 0;
+  assign do_start_counter = start_strobe;
+  assign do_stop_counter = (stop_strobe                            ) ||
+    (force_reload                           ) ||
+    (counter_is_zero && ~control_continuous );
+
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
@@ -125,7 +135,9 @@ module cpu2core_timer_0 (
 
   assign irq = timeout_occurred && control_interrupt_enable;
   //s1, which is an e_avalon_slave
-  assign read_mux_out = ({16 {(address == 1)}} & control_register) |
+  assign read_mux_out = ({16 {(address == 2)}} & period_l_register) |
+    ({16 {(address == 3)}} & period_h_register) |
+    ({16 {(address == 1)}} & control_register) |
     ({16 {(address == 0)}} & {counter_is_running,
     timeout_occurred});
 
@@ -140,17 +152,38 @@ module cpu2core_timer_0 (
 
   assign period_l_wr_strobe = chipselect && ~write_n && (address == 2);
   assign period_h_wr_strobe = chipselect && ~write_n && (address == 3);
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          period_l_register <= 30783;
+      else if (period_l_wr_strobe)
+          period_l_register <= writedata;
+    end
+
+
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          period_h_register <= 381;
+      else if (period_h_wr_strobe)
+          period_h_register <= writedata;
+    end
+
+
   assign control_wr_strobe = chipselect && ~write_n && (address == 1);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
           control_register <= 0;
       else if (control_wr_strobe)
-          control_register <= writedata[0];
+          control_register <= writedata[3 : 0];
     end
 
 
-  assign control_interrupt_enable = control_register;
+  assign stop_strobe = writedata[3] && control_wr_strobe;
+  assign start_strobe = writedata[2] && control_wr_strobe;
+  assign control_continuous = control_register[1];
+  assign control_interrupt_enable = control_register[0];
   assign status_wr_strobe = chipselect && ~write_n && (address == 0);
 
 endmodule
